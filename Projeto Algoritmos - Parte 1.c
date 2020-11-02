@@ -1,5 +1,14 @@
-/*Projeto de Algoritmos-Programa com Algumas Funcoes de uma Calculadora Cientifica- Versao 1.3.0 em C
+/*Projeto de Algoritmos-Programa com Algumas Funcoes de uma Calculadora Cientifica- Versao 1.4.0 em C
 PARTE 1-OPERACOES BASICAS E FUNCOES DO CODIGO
+PARTE 2-ARMAZENAMENTO EM ARQUIVO
+
+Atualizacoes:
+
+-Função outra_raiz retornava 0, agora está retornando o resultado correto;
+-Alguns \n e solucao de problemas para salvar no arquivo;
+-Diminuicao de 8 para 3 casas de algumas variavel apos a virgula para facilitar visulizacao em arquivo, apenas os resultados mantem as 8 casas que sao o padrao em calculadoras normais.
+
+
 */
 
 #include<stdio.h>
@@ -38,27 +47,41 @@ int main(void)
     int z=0,fat=0;
     char op2=0;
     enum operacao {OperacaoSimples=1,Seno, Cosseno, Tangente, SenoHiperbolico, CossenoHiperbolico, TangenteHiperbolica, Log10, RaizQuadrada, Exp, Exponencial, RaizCubica, Fatorial, Porcentagem,RaizQualquer,Sair};
-    //Uso da variavel para facilitar a identificacao de cada escolha
+    //Uso da variavel enum para facilitar a identificacao de cada escolha
+
+        //Armazenamento em arquivo
+
+        FILE *file;
+        file = fopen("historico.txt","a");//Abrindo o arquivo usando "a" para acrescentar sem apagar o que foi escrito antes, fazendo um registro de operacoes
+        if(file==NULL)//Confirmando a criacao do arquivo
+        {
+            printf("Arquivo nao pode ser criado\n");
+            system("pause");
+            return 1;//Retorno com a variavel 1 ou -1 indica que houve problema
+        }
+        else
+            printf("\nArquivo texto criado com sucesso\n");
+        system("cls");
 
         //Menu da Calculadora
         printf("==============================================\n");
         printf("\tQual operacao deseja fazer?\n");
         printf("==============================================\n");
-        printf("\n1-Operacao Simples         - \t");
+        printf("\n1-Operacao Simples         * \t");
         printf("2-Seno");
-        printf("\n3-Cosseno\t           -\t");
+        printf("\n3-Cosseno\t           *\t");
         printf("4-Tangente");
-        printf("\n5-Seno Hiperbolico         - \t");
+        printf("\n5-Seno Hiperbolico         * \t");
         printf("6-Cosseno Hiperbolico");
-        printf("\n7-Tangente Hiperbolica     - \t");
+        printf("\n7-Tangente Hiperbolica     * \t");
         printf("8-Log Base 10");
-        printf("\n9-Raiz Quadrada            - \t");
+        printf("\n9-Raiz Quadrada            * \t");
         printf("10-Exp");
-        printf("\n11-Exponencial             - \t");
+        printf("\n11-Exponencial             * \t");
         printf("12-Raiz Cubica");
-        printf("\n13-Fatorial                - \t");
+        printf("\n13-Fatorial                * \t");
         printf("14-Porcentagem");
-        printf("\n15-Raiz de Indice Qualquer - \t");
+        printf("\n15-Raiz de Indice Qualquer * \t");
         printf("16- Sair\n");
         printf("=============================================\n");
 
@@ -85,6 +108,8 @@ int main(void)
             fflush(stdin);
             scanf("%f",&n2);
             result= func1(n1,n2,operador);//Chamada a func1
+            printf("%.3f %c %.3f = %.3f\n",n1,operador,n2,result);
+            fprintf(file,"%.3f %c %.3f = %.3f\n",n1,operador,n2,result);//Escrita no arquivo
             break;
 
         case Seno:
@@ -93,6 +118,7 @@ int main(void)
             fflush(stdin);
             seno=sine(ang);
             printf("%.8f\n",seno);
+            fprintf(file,"sin(%.3f) = %.8f\n",ang,seno);
             break;
 
         case Cosseno:
@@ -101,6 +127,7 @@ int main(void)
             fflush(stdin);
             cosseno=cossine(ang);
             printf("%.8f\n",cosseno);
+            fprintf(file,"cos(%.3f) = %.8f\n",ang,cosseno);
             break;
 
         case Tangente:
@@ -109,6 +136,7 @@ int main(void)
             fflush(stdin);
             tangente=tangent(ang);
             printf("%.8f\n",tangente);
+            fprintf(file,"tan(%.3f) = %.8f\n",ang,tangente);
             break;
 
         case SenoHiperbolico:
@@ -117,6 +145,7 @@ int main(void)
             fflush(stdin);
             senh=sineh(ang);
             printf("%.8f\n",senh);
+            fprintf(file,"senoh(%.3f) = %.8f\n",ang,senh);
             break;
 
         case CossenoHiperbolico:
@@ -125,6 +154,7 @@ int main(void)
             fflush(stdin);
             cosh=cossineh(ang);
             printf("%.8f\n",cosh);
+            fprintf(file,"cosh(%.3f) = %.8f\n",ang,cosh);
             break;
 
         case TangenteHiperbolica:
@@ -133,6 +163,7 @@ int main(void)
             fflush(stdin);
             tangh=tangenth(ang);
             printf("%.8f\n",tangh);
+            fprintf(file,"tangh(%.3f) = %.8f\n",ang,tangh);
             break;
 
         case Log10:
@@ -141,6 +172,7 @@ int main(void)
             fflush(stdin);
             result=logdez(num);
             printf("%.8f\n",result);
+            fprintf(file,"log10(%.3f) = %.8f\n",num,result);
             break;
 
         case RaizQuadrada:
@@ -149,6 +181,7 @@ int main(void)
             fflush(stdin);
             result=raiz(num);
             printf("%.8f\n",result);
+            fprintf(file,"raiz(%.3f) = %.8f\n",num,result);
             break;
 
         case Exp:
@@ -157,6 +190,7 @@ int main(void)
             fflush(stdin);
             result=expoente(num);
             printf("%.8f\n",result);
+            fprintf(file,"exp(%.3f) = %.8f\n",num,result);
             break;
 
         case Exponencial:
@@ -168,6 +202,7 @@ int main(void)
             fflush(stdin);
             result=base(x,y);
             printf("%.8f\n",result);
+            fprintf(file,"%.3f^%.3f = %.8f\n",x,y,result);
             break;
 
         case RaizCubica:
@@ -176,6 +211,7 @@ int main(void)
             fflush(stdin);
             result=raizcub(num);
             printf("%.8f\n",result);
+            fprintf(file,"raizcub(%.3f) = %.8f\n",num,result);
             break;
 
         case Fatorial:
@@ -184,6 +220,7 @@ int main(void)
             fflush(stdin);
             fat=fatorial(z);
             printf("%d!= %d\n",z,fat);
+            fprintf(file,"%d! = %d\n",z,fat);
             break;
 
         case Porcentagem:
@@ -191,7 +228,8 @@ int main(void)
             scanf("%f",&num);
             fflush(stdin);
             result=percent(num);
-            printf("%.2f",result);
+            printf("%.2f\n",result);
+            fprintf(file,"%.2f porcento\n",result);
             break;
 
         case RaizQualquer:
@@ -203,17 +241,18 @@ int main(void)
             fflush(stdin);
             result=outra_raiz(num,indice);
             printf("%.8f\n",&result);
+            fprintf(file,"raiz do numero %.3f com indice %.3f= %.8lf\n",num,indice,result);
             break;
 
         case Sair:
             break;
 
         default:
-            printf("Funcao 404");
+            printf("Funcao 404\n");
             break;
         }
 
-
+        fclose(file);//Fechamento do arquivo
         printf("Deseja 0-Sair ou 1- Continuar?");//Pergunta ao usuario a opcao de sair ou voltar ao programa novamente
         scanf("%d",&k);
     }
@@ -339,7 +378,7 @@ float outra_raiz(float num,float indice)
     }
     while(x!=xzero);
     printf("%.8lf",x);
-    return 0;
+    return x;
 
 }
 
