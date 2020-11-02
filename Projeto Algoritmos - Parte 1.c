@@ -1,4 +1,4 @@
-/*Projeto de Algoritmos-Programa com Algumas Funcoes de uma Calculadora Cientifica- Versao 1.4.0 em C
+/*Projeto de Algoritmos-Programa com Algumas Funcoes de uma Calculadora Cientifica
 PARTE 1-OPERACOES BASICAS E FUNCOES DO CODIGO
 PARTE 2-ARMAZENAMENTO EM ARQUIVO
 
