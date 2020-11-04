@@ -2,12 +2,12 @@
 PARTE 1-OPERACOES BASICAS E FUNCOES DO CODIGO
 PARTE 2-ARMAZENAMENTO EM ARQUIVO
 
-Atualizacoes:
+Atualizacoes(04/11):
 
 -Função outra_raiz retornava 0, agora está retornando o resultado correto;
 -Alguns \n e solucao de problemas para salvar no arquivo;
 -Diminuicao de 8 para 3 casas de algumas variavel apos a virgula para facilitar visulizacao em arquivo, apenas os resultados mantem as 8 casas que sao o padrao em calculadoras normais.
-
+-Conserto de erros na funcao outra_raiz que printava e retornava e um "&" extra;
 
 */
 
@@ -240,7 +240,7 @@ int main(void)
             scanf("%f",&indice);
             fflush(stdin);
             result=outra_raiz(num,indice);
-            printf("%.8f\n",&result);
+            printf("%.8f\n",result);
             fprintf(file,"raiz do numero %.3f com indice %.3f= %.8lf\n",num,indice,result);
             break;
 
@@ -377,7 +377,6 @@ float outra_raiz(float num,float indice)
         x=(1/indice)*((indice-1)*xzero+(num/pow(xzero,indice-1)));//Formula para o calculo da raiz de um numero de qualquer indice
     }
     while(x!=xzero);
-    printf("%.8lf",x);
     return x;
 
 }
