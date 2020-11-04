@@ -8,6 +8,7 @@ Atualizacoes(04/11):
 -Alguns \n e solucao de problemas para salvar no arquivo;
 -Diminuicao de 8 para 3 casas de algumas variavel apos a virgula para facilitar visulizacao em arquivo, apenas os resultados mantem as 8 casas que sao o padrao em calculadoras normais.
 -Conserto de erros na funcao outra_raiz que printava e retornava e um "&" extra;
+-Conversão de radianos em graus em funções hiperbólicas
 
 */
 
@@ -314,17 +315,17 @@ float tangent(float ang)
 
 float sineh(float ang)
 {
-    return(sinh(ang));
+    return(sinh(ang*PI/180));
 
 }
 float cossineh(float ang)
 {
-    return (cosh(ang));
+    return (cosh(ang*PI/180));
 }
 
 float tangenth(float ang)
 {
-    return(tanh(ang));
+    return(tanh(ang*PI/180));
 }
 
 float logdez(float num)
